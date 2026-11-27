@@ -34,6 +34,25 @@ app:on_text(function(ctx) return ctx:reply("Echo: " .. ctx.text) end)
 app:run()
 ```
 
+Native shorthand is executable Lua API, not a second bot language. The explicit
+`on_command`, `on_text`, `on_event`, `call`, and `reply` APIs remain supported:
+
+```lua
+local app = require("ll-lua").new({ token = os.getenv("TELEGRAM_BOT_TOKEN") })
+app:command("start", function(ctx) ctx:send_message("Hello") end)
+app:text(function(ctx) ctx:sendMessage("You wrote: " .. ctx.text) end)
+app:callback_query(function(ctx) ctx:answer_callback_query({ callback_query_id = ctx.update.callback_query.id }) end)
+app:inline_query(function(ctx) ctx:answer_inline_query({ inline_query_id = ctx.update.inline_query.id, results = {} }) end)
+app:send_message({ chat_id = 123, text = "sent directly" }) -- maps to sendMessage
+app:start() -- alias of run; app:stop() and app:reload() are lifecycle controls
+```
+
+`app:command(name, fn)`, `app:text(fn)`, `app:event(name, fn)`,
+`app:callback_query(fn)`, and `app:inline_query(fn)` register routes. Any direct
+Telegram method can use either canonical camelCase or Lua snake_case (for
+example `app:sendMessage(params)` or `app:send_message(params)`); context
+methods automatically supply the current chat ID when available.
+
 `new()` always creates the standard nine-runner capacity model. `workers` controls the active worker count but never changes the capacity ceiling. Handlers should be idempotent because delivery is at-least-once.
 
 ## Included capabilities
