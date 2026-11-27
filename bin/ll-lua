@@ -1,0 +1,12 @@
+#!/usr/bin/env lua5.5
+local file = arg[1]
+if not file then io.stderr:write("usage: ll-lua BOT.lua [--mode webhook|polling] [--port N]\n"); os.exit(2) end
+local bot = assert(dofile(file))
+local mode, port = nil, nil
+for i = 2, #arg do
+  if arg[i] == "--mode" then mode = arg[i + 1]
+  elseif arg[i] == "--port" then port = tonumber(arg[i + 1]) end
+end
+if mode then bot.config.mode = mode end
+if port then bot.config.listen_port = port end
+assert(bot:run())

@@ -1,0 +1,10 @@
+*.rock
+*.src.rock
+.luarocks/
+.rocks/
+luarocks.cfg
+*.log
+*.tmp
+*.swp
+.DS_Store
+coverage/
