@@ -1,10 +1,10 @@
 package = "ll-lua"
-version = "0.1.0-1"
-source = { url = "https://github.com/ll-tg/ll-lua" }
+version = "0.1.1-1"
+source = { url = "https://github.com/ll-tg/ll-lua/archive/refs/tags/v0.1.1.tar.gz", tag = "v0.1.1" }
 description = {
   summary = "Lua 5.5 Telegram bot runtime with durable queues",
   detailed = "A language-only Telegram Bot API framework for Lua 5.5.",
-  homepage = "https://github.com/ll-tg/ll-lua",
+  homepage = "https://github.com/ll-tg/ll-lua/archive/refs/tags/v0.1.1.tar.gz", tag = "v0.1.1",
   license = "MIT"
 }
 dependencies = { "lua >= 5.5", "luasocket >= 3.1-1" }
